@@ -8,7 +8,7 @@ chmod +x imapsync
 ./imapsync
 ```
 
-You can change the default username, password, and line display settings in the .env file.
+You can change the default username, password, and line display settings in the .env file.<br/>
 Don't forget to open port 3000 on your firewall.
 
 ![image](https://github.com/mozgr/imapsync-web/blob/master/screenshot.png)
