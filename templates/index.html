@@ -1,0 +1,94 @@
+{{ define "index" }}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .terminal {
+            background-color: #000;
+            color: #0F0;
+            font-family: 'Courier New', monospace;
+            font-size: small;
+            padding: 10px;
+            margin: 10px;
+            white-space: pre-line;
+        }
+    </style>
+    <title>ImapSync Web</title>
+    <script>
+        function handleSubmit() {
+           // document.getElementById("output").innerHTML = "Executing command...";
+            const inputText = document.getElementById("inputText").value.trim();
+            const inputLines = inputText.split("\n");
+            inputLines.forEach(function(line) {
+                const lineData = line.split(";");
+
+                const formData = {
+                        host1: lineData[0],
+                        user1: lineData[1],
+                        password1: lineData[2],
+                        host2: lineData[3],
+                        user2: lineData[4],
+                        password2: lineData[5],
+                        automap: document.getElementById("automap").checked,
+                        delete2duplicates: document.getElementById("delete2duplicates").checked,
+                };
+
+                const socket = new WebSocket("ws://xxx.xxx.xxx:3000/ws");
+
+                socket.onopen = function (event) {
+                        socket.send(JSON.stringify(formData));
+                };
+                var label = document.createElement('label');
+                label.innerHTML = lineData[1] + " >>>>>> " + lineData[4];
+                const outputDiv = document.createElement("div");
+
+                outputDiv.className = "terminal";
+                document.getElementById("output").appendChild(label);
+                document.getElementById("output").appendChild(outputDiv);
+                socket.onmessage = function (event) {
+                    outputDiv.innerHTML = event.data;
+
+
+                    // Scroll to the bottom of the output div
+                    document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
+                };
+
+                socket.onclose = function (event) {
+                    console.log("WebSocket connection closed");
+                };
+
+                socket.onerror = function (error) {
+                    console.error("WebSocket error:", error);
+                };
+            });
+        }
+    </script>
+</head>
+<body>
+        <h1>Imapsync Web</h1>
+        <form onsubmit="event.preventDefault(); handleSubmit();">
+        <p>Please enter the credentials of your email accounts in the format provided below.</p>
+        <p>host1: source, host2: target</p>
+        
+        <p>host1;user1;pass1;host2;user2;pass2</p>
+
+        <textarea id="inputText" name="inputText" rows="5" cols="100" required></textarea><br><br>
+
+                <label for="automap">Automap:</label>
+                <input type="checkbox" id="automap" name="automap"><br><br>
+
+                <label for="delete2duplicates">Delete Duplicates:</label>
+                <input type="checkbox" id="delete2duplicates" name="delete2duplicates"><br><br>
+
+                <button type="submit">Submit</button>
+        </form>
+        <br>
+<div style="white-space: pre-line;" id="output">
+    {{ range .Output }}
+        {{ . }}<br>
+    {{ end }}
+</div>
+
+</body>
+</html>
+{{ end }}
