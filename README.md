@@ -1,4 +1,4 @@
-## Experimental web ui for imapsync(Linux) ##
+## Simple web ui for imapsync(Linux) ##
 
 1. You have to install imapsync to your linux server first.
 2. Change xxx.xxx.xxx to your server ip address in index.html 
@@ -9,6 +9,7 @@ chmod +x imapsync-web
 ```
 
 You can change the default username, password, and line display settings in the .env file.<br/>
-Don't forget to open port 3000 on your firewall.
+Don't forget to open port 3000 on your firewall.<br/>
+You can simply modify index.html and "command" variable in go code to run any linux command from your browser.
 
 ![image](https://github.com/mozgr/imapsync-web/blob/master/screenshot.png)
