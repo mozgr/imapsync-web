@@ -1,5 +1,8 @@
 ## Simple web ui for imapsync(Linux) ##
 
+With this web application, you can migrate your emails from multiple accounts to new accounts simultaneously.
+
+Installation
 1. You have to install imapsync to your linux server first.
 2. Change xxx.xxx.xxx to your server ip address in index.html 
 3. Put template/index.html, .env, imapsync-web to same directory and run imapsync-web.
