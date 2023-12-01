@@ -13,6 +13,7 @@ chmod +x imapsync-web
 
 You can change the default username, password, and line display settings in the .env file.<br/>
 Don't forget to open port 3000 on your firewall.<br/>
+Go backend uses websocket to print stdout to web page.
 You can simply modify index.html and "command" variable in go code to run any linux command from your browser.
 
 ![image](https://github.com/mozgr/imapsync-web/blob/master/screenshot.png)
